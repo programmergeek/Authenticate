@@ -17,6 +17,7 @@ export const Login: React.FC = () => {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <span className="header">Login</span>
         <label>Username</label>
         <input {...register("username", { required: true, maxLength: 100 })} />
         {errors.username && errors.username.type === "required" && (
