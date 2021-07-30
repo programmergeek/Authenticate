@@ -1,0 +1,17 @@
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.primary{
+    background-color: #FF3D68;
+    color: #fff;
+    text-decoration: none;
+    width: 120px;
+    height: 50px;
+    padding: 16px 12px;
+    border-radius: 10px;
+    margin-right: 50px;
+}
