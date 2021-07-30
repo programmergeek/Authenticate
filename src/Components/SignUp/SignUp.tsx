@@ -20,6 +20,7 @@ export const SignUp: React.FC = () => {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit(onSubmit)} id="sign-up-form">
+        <span className="header">Sign Up</span>
         <label>Name</label>
         <input {...register("name", { required: true, maxLength: 100 })} />
         {errors.name && errors.name.type === "required" && (
@@ -79,6 +80,7 @@ export const SignUp: React.FC = () => {
           </span>
         )}
         <button type="submit">Sign Up</button>
+        <a href="/login">Login</a>
       </form>
     </div>
   );
