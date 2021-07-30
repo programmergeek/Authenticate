@@ -1,11 +1,14 @@
 import React from "react";
 import "./App.css";
-import { Login } from "./Components";
+import { Home, Login, SignUp } from "./Components";
+import { Route } from "wouter";
 
 function App() {
   return (
     <div className="App">
-      <Login />
+      <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={SignUp} />
     </div>
   );
 }
