@@ -1,16 +1,26 @@
 import React from "react";
 import "./App.css";
 import { Home, Login, SignUp } from "./Components";
-import { Route } from "wouter";
+import { Switch, Route, HashRouter } from "react-router-dom";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <Route path="/" component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={SignUp} />
-    </div>
+    <HashRouter>
+      <div>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+        </Switch>
+      </div>
+    </HashRouter>
   );
-}
+};
 
 export default App;

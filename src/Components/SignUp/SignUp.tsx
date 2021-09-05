@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 interface Inputs {
   name: string;
@@ -79,7 +80,9 @@ export const SignUp: React.FC = () => {
           </span>
         )}
         <button type="submit">Sign Up</button>
-        <a href="/login">Login</a>
+        <Link to="/login">
+          <a href="/login">Login</a>
+        </Link>
       </form>
     </div>
   );

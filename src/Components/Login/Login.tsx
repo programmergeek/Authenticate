@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 interface Fields {
   username: string;
@@ -51,7 +52,9 @@ export const Login: React.FC = () => {
           </span>
         )}
         <button type="submit">Login</button>
-        <a href="/signup">Create an account</a>
+        <Link to="/signup">
+          <a href="/signup">Create an account</a>
+        </Link>
       </form>
     </div>
   );
