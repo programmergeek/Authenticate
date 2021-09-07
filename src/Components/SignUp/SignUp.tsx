@@ -1,6 +1,8 @@
+import { FirebaseApp } from "@firebase/app";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 interface Inputs {
   name: string;
@@ -9,13 +11,25 @@ interface Inputs {
   password: string;
 }
 
-export const SignUp: React.FC = () => {
+interface Props {
+  firebaseApp: FirebaseApp;
+}
+
+export const SignUp: React.FC<Props> = ({ ...props }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const auth = getAuth(props.firebaseApp);
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCred) => [console.log(userCred.user)])
+      .catch((err) => console.log(err.message));
+
+    console.log(data);
+  };
 
   return (
     <div className="form-container">
