@@ -3,6 +3,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 interface Inputs {
   name: string;
@@ -25,7 +26,23 @@ export const SignUp: React.FC<Props> = ({ ...props }: Props) => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const auth = getAuth(props.firebaseApp);
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCred) => [console.log(userCred.user)])
+      .then((userCred) => {
+        const firestore = getFirestore(props.firebaseApp);
+        try {
+          let id = "";
+          const docRef = async () =>
+            await addDoc(collection(firestore, "users"), {
+              uid: userCred.user.uid,
+              name: data.name,
+              username: data.username,
+              email: data.email,
+            });
+          docRef().then((e) => (id = e.id));
+          console.log("Document written with ID: " + id);
+        } catch (e) {
+          console.log("Error adding document: ", e);
+        }
+      })
       .catch((err) => console.log(err.message));
 
     console.log(data);
