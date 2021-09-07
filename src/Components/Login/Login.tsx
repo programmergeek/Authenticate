@@ -1,19 +1,44 @@
+import { FirebaseApp } from "@firebase/app";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 interface Fields {
   username: string;
   password: string;
 }
 
-export const Login: React.FC = () => {
+interface Props {
+  firebaseApp: FirebaseApp;
+}
+
+export const Login: React.FC<Props> = ({ ...props }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Fields>();
-  const onSubmit: SubmitHandler<Fields> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Fields> = (data) => {
+    const auth = getAuth(props.firebaseApp);
+    signInWithEmailAndPassword(auth, data.username, data.password).then(() => {
+      const firestore = getFirestore(props.firebaseApp);
+      try {
+        const docRef = async () =>
+          await getDocs(collection(firestore, "users"));
+        docRef().then((res) => {
+          res.forEach((data) => {
+            console.log(`${data.id} => ${JSON.stringify(data.data())}`);
+          });
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    console.log(data);
+  };
 
   return (
     <div className="form-container">

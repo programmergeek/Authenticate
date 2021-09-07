@@ -25,7 +25,7 @@ const App: React.FC = () => {
             <Home />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login firebaseApp={app} />
           </Route>
           <Route path="/signup">
             <SignUp firebaseApp={app} />
